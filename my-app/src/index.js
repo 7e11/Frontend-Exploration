@@ -76,6 +76,7 @@ class Game extends React.Component {
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
+      reverseList: false,
     });
   }
 
@@ -86,13 +87,19 @@ class Game extends React.Component {
     })
   }
 
+  reverseMovesList() {
+    this.setState({
+      reverseList: !this.state.reverseList,
+    })
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
     // We define this component now, but render it after the board.
-    const moves = history.map((step, move) => {
+    let moves = history.map((step, move) => {
       // If move is zero, the state is "game start"
       const desc = move ?
         'Go to move #' + move + ' (' + (Math.floor(step.move_loc / 3) + 1) + ', ' + ((step.move_loc % 3) + 1) + ')':
@@ -113,11 +120,20 @@ class Game extends React.Component {
       )
     })
 
+    // let reverse_moves = true;
+    if (this.state.reverseList) {
+      // Could copy moves then reverse it, and use a boolean
+      // in render to pick which ordering to display, 
+      // but It's easier to just modify it
+      // It's kind of constant if it's modified before it's read
+      moves.reverse();
+    }
+
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
     } else if (this.state.stepNumber === 9 && !winner) {
-      status = 'Draw'
+      status = 'Stalemate'
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
@@ -134,6 +150,9 @@ class Game extends React.Component {
         <div className="game-info">
           <div>{status}</div>
           <ol>{moves}</ol>
+          <button onClick={() => this.reverseMovesList()}>
+            reverse list
+          </button>
         </div>
       </div>
     );
