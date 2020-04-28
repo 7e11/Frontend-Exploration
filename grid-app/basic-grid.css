@@ -1,0 +1,25 @@
+.basic-grid {
+  display: grid;
+  /* Adds spacing between items horizontally and vertically */
+  gap: 1rem;
+  /* 1 Explicity states how many columns we want */
+  /* 1fr = 1 Fractional Unit. If there's only 1fr it's 1 column takes up
+      All of the horizontal space. */
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  /* 2 That's really ugly, so use the repeat helper function instead */
+  grid-template-columns: repeat(12, 1fr);
+  /* 3 Minmax states: Don't let my columns go below 240px width, but allow them
+      to expand as big as 1fr. However, this well never break down into more rows.
+      it will just be one long row */
+  grid-template-columns: repeat(12, minmax(240px, 1fr));
+
+  /* 4 to solve this, we need an implicit grid (auto-fit) which lets the algorithm
+      figure out how many rows and cols are appropriate */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+  /* There is also an auto-fill option, which will make additional columns
+      when there is enough space.  */
+
+  /* Firefox dev tools has a really good grid and flexbox inspection */
+
+}

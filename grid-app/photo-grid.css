@@ -1,0 +1,27 @@
+.photo-grid {
+  display: grid;
+  gap: 1rem;
+
+  /* This is good, but every picture ends up the same size */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-auto-rows: 240px;
+}
+
+/* Displaying certain cards as double width or height breaks on smaller screen
+    sizes. Checking that our media has a screen size of at least 600px is a way
+    to fix this. */
+@media screen and (min-width: 600px) {
+  .card-tall {
+    /* Declares that this should span multiple rows vertically 
+        The slash specifies the ending point, which can be figured out with auto
+        Not even sure if the ending point is necessary, seems to work fine without.*/
+    /* start / end */
+    /* 1 / 4, would mean "start at explicitly line 1, and end at expliticly line 4 */
+    /* span 2 means, start wherever and span 2 rows */
+    grid-row: span 2 / auto;
+  }
+
+  .card-wide {
+    grid-column: span 2 / auto;
+  }
+}

@@ -1,0 +1,110 @@
+.animated-grid {
+  height: 85vh;
+  margin-bottom: 200px;
+
+  display: grid;
+  gap: 1rem;
+
+  /* We'll want an explicit grid b/c we know what dimmensions we have */
+  /* You can use emoji's as identifiers, but that's kinda cringe */
+  /* Giving regions the same identifier will cause them to connect */
+  grid-template-areas: 
+    'a b c d'
+    'l 🌟 🌟 e'
+    'k 🌟 🌟 f'
+    'j i h g';
+
+  /* We have a fixed height, each row should be 25% of screen */
+  grid-template-rows: repeat(4, 25%);
+  /* Width can expand and contract, we want middle section to be dynamic */
+  grid-template-columns: 240px auto auto 240px;
+
+  /* This is a variable which we can edit so we don't need to manually change the
+    timings on all of our elements */
+  --stagger-delay: 100ms;
+}
+
+/* "Allow you to move from one set of properties to another"
+  Investigate this further, seems interesting 
+  CSS will automatlically interpolate between the starting and ending values*/
+@keyframes cardEntrance {
+  from {
+    /* Invisible */
+    opacity: 0;
+    transform: scale(0.3);
+    filter: hue-rotate(180deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: hue-rotate(0deg);
+  }
+}
+
+.card {
+  background-color: rgb(36, 243, 147);
+  /* name, duration, timing, delay, iter-count, direction, fill-mode, play-state */
+  /* We only use the first 3 */
+  animation: cardEntrance 700ms ease-out;  
+  /* The "from" property is applied before the animation is displayed */
+  animation-fill-mode: backwards;
+}
+
+/* You could use custom class names to select, this is just convenient because
+  The grid is layed out in a nice way 
+  Maybe checkout SASS (programming languge), which would allow you to declare
+  all of this in a for loop. */
+  .card:nth-child(1) {
+    /* This refers to the template areas */
+    grid-area: a;
+    /* calc can perform basic calculations on numeric values */
+    animation-delay: calc(1 * var(--stagger-delay));
+  }
+  .card:nth-child(2) {
+    grid-area: b;
+    animation-delay: calc(2 * var(--stagger-delay));
+  }
+  .card:nth-child(3) {
+    grid-area: c;
+    animation-delay: calc(3 * var(--stagger-delay));
+  }
+  .card:nth-child(4) {
+    grid-area: d;
+    animation-delay: calc(4 * var(--stagger-delay));
+  }
+  .card:nth-child(5) {
+    grid-area: e;
+    animation-delay: calc(5 * var(--stagger-delay));
+  }
+  .card:nth-child(6) {
+    grid-area: f;
+    animation-delay: calc(6 * var(--stagger-delay));
+  }
+  .card:nth-child(7) {
+    grid-area: g;
+    animation-delay: calc(7 * var(--stagger-delay));
+  }
+  .card:nth-child(8) {
+    grid-area: h;
+    animation-delay: calc(8 * var(--stagger-delay));
+  }
+  .card:nth-child(9) {
+    grid-area: i;
+    animation-delay: calc(9 * var(--stagger-delay));
+  }
+  .card:nth-child(10) {
+    grid-area: j;
+    animation-delay: calc(10 * var(--stagger-delay));
+  }
+  .card:nth-child(11) {
+    grid-area: k;
+    animation-delay: calc(11 * var(--stagger-delay));
+  }
+  .card:nth-child(12) {
+    grid-area: l;
+    animation-delay: calc(12 * var(--stagger-delay));
+  }
+  .card:last-child {
+    grid-area: 🌟;
+    animation-delay: calc(13 * var(--stagger-delay));
+  }
